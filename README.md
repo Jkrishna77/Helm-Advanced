@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Helm-Advanced 🚀
 
 This repository demonstrates **advanced Helm usage** by combining:
