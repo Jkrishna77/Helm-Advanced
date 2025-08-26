@@ -1,0 +1,24 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: flask-app
+    namespace: helmfile-demo
+    # Local path to the chart in windows system helmfile requires abs path as of version 0.144.0
+    chart: C:\\learn\\Helm-Advaced\\charts\\helm-flask-svc
+    values:
+      - image:
+          repository: jayakrishnaf5/flask-rest-service
+          tag: v1
+        service:
+          type: ClusterIP
+          port: 9001
+
+  - name: redis
+    namespace: helmfile-demo
+    chart: bitnami/redis
+    version: 19.0.0
+    values:
+      - auth:
+          enabled: false
