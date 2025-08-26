@@ -15,4 +15,10 @@ releases:
           type: ClusterIP
           port: 9001
 
-
+  - name: redis
+    namespace: helmfile-demo
+    chart: bitnami/redis
+    version: 19.0.0
+    values:
+      - auth:
+          enabled: false
