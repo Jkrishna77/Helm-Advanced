@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "helm-flask-svc.fullname" . }}-test-connection"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: test
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              SERVICE="{{ include "helm-flask-svc.fullname" . }}"
+              for i in $(seq 1 30); do
+                wget -qO- http://$SERVICE:9001/hello && exit 0
+                echo "Waiting for service $SERVICE..."
+                sleep 2
+              done
+              echo "Service $SERVICE not available"
+              exit 1
